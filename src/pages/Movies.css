@@ -26,39 +26,42 @@
 /* Grade de filmes estilo grid */
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Remover estilos redundantes que podem interferir com o MovieCard.css */
+.movie-grid .movie-card {
+  margin-bottom: 20px;
 }
 
 /* Card de filme */
 .movie-card {
-  background-color: #1a202c;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-
-.movie-card:hover {
-  transform: translateY(-5px);
+  height: 100%;
 }
 
 /* Poster do filme */
 .movie-card img {
   width: 100%;
-  height: 240px;
+  height: auto;
   object-fit: cover;
-  border-radius: 12px 12px 0 0;
-}
-
-/* Título (opcional) */
-.movie-card h3 {
-  font-size: 0.95rem;
-  padding: 0.5rem;
-  text-align: center;
-  color: #eee;
+  border-radius: 10px;
 }
 
 /* Paginação */
@@ -120,9 +123,27 @@
   background-color: #c2b300;
   color: black;
 }
+
 .carousel-container {
-  margin: 1rem 0 2rem;
-  padding: 0 1rem;
+  margin: 1.5rem 0 2.5rem;
+  padding: 0;
+}
+
+.swiper-slide {
+  height: auto;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.swiper-slide:hover img {
+  transform: scale(1.03);
 }
 
 .section-title {

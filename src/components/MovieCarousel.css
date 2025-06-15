@@ -5,12 +5,50 @@
   
   .carousel-title {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: #fff;
+    border-left: 5px solid #00e0ff;
+    padding-left: 10px;
+    font-weight: bold;
   }
   
   .swiper-button-prev,
   .swiper-button-next {
-    color: #fff;
+    color: #00e0ff;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 20px;
+  }
+  
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .swiper-slide {
+    transition: transform 0.3s ease;
+    height: 300px;
+  }
+  
+  .movie-carousel .movie-card {
+    height: 100%;
+  }
+  
+  /* Garantir que os cartazes do carousel tenham altura fixa */
+  .movie-carousel .swiper-slide .movie-card {
+    height: 300px;
+  }
+  
+  .movie-carousel .swiper-slide .movie-poster {
+    height: 100%;
   }
   

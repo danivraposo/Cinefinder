@@ -1,0 +1,66 @@
+.search-results {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #0b1120;
+  min-height: 80vh;
+}
+
+.search-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #f5c518; /* Cor amarela do IMDB */
+  border-left: 5px solid #00e0ff;
+  padding-left: 15px;
+}
+
+.search-message {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.search-error {
+  color: #ff6b6b;
+  font-weight: bold;
+  background-color: rgba(255, 107, 107, 0.1);
+  border-left: 3px solid #ff6b6b;
+}
+
+.search-results .movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.search-results .movie-card {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .search-results .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  
+  .search-results {
+    padding: 15px;
+  }
+  
+  .search-title {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .search-results .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+} 

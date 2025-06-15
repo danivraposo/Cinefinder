@@ -165,7 +165,7 @@ const TVShows = () => {
 
       <div className="movie-grid">
         {tvShows.map((show) => (
-          <MovieCard key={show.id} movie={show} />
+          <MovieCard key={show.id} movie={show} showRating={false} />
         ))}
       </div>
 

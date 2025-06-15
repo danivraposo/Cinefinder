@@ -48,14 +48,53 @@
   gap: 15px;
 }
 
+.navbar-actions form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .navbar-actions input {
-  padding: 6px 10px;
+  padding: 8px 12px;
+  padding-right: 30px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid #30363d;
   background-color: #1f2937;
   color: white;
   font-size: 0.9rem;
   outline: none;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.navbar-actions input:focus {
+  border-color: #facc15;
+  width: 250px;
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+}
+
+.navbar-actions input::placeholder {
+  color: #8b949e;
+}
+
+.navbar-actions button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b949e;
+  transition: color 0.3s ease;
+}
+
+.navbar-actions button:hover {
+  color: #facc15;
 }
 
 .user-icon {

@@ -4,6 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import MovieCard from "./MovieCard";
+import "./MovieCarousel.css";
 
 const MovieCarousel = ({ title = "Popular Movies", apiUrl }) => {
   const [movies, setMovies] = useState([]);
@@ -34,7 +35,12 @@ const MovieCarousel = ({ title = "Popular Movies", apiUrl }) => {
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <MovieCard movie={movie} />
+            <MovieCard 
+              title={movie.title || movie.name} 
+              posterPath={movie.poster_path}
+              rating={movie.vote_average}
+              showRating={false}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
