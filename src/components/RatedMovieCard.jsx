@@ -35,7 +35,10 @@ const RatedMovieCard = ({ movie }) => {
   // Função para navegar para a página de detalhes do filme
   const handleCardClick = () => {
     if (movie.id) {
-      navigate(`/movie/${movie.id}`);
+      // Usar a propriedade media_type ou detectar pelo título
+      const mediaType = movie.media_type || (movie.name ? "tv" : "movie");
+      const detailsPath = mediaType === "tv" ? `/tv/${movie.id}` : `/movie/${movie.id}`;
+      navigate(detailsPath);
     }
   };
 

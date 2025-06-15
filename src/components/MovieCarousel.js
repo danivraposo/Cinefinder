@@ -13,11 +13,21 @@ const MovieCarousel = ({ title = "Popular Movies", apiUrl }) => {
     const fetchData = async () => {
       const res = await fetch(apiUrl);
       const data = await res.json();
-      setMovies(data.results || []);
+      
+      // Determinar o tipo de mídia com base na URL ou no título
+      const mediaType = apiUrl.includes('/tv/') || title.includes('TV') ? 'tv' : 'movie';
+      
+      // Adicionar media_type aos resultados
+      const items = data.results?.map(item => ({
+        ...item,
+        media_type: mediaType
+      })) || [];
+      
+      setMovies(items);
     };
 
     fetchData();
-  }, [apiUrl]);
+  }, [apiUrl, title]);
 
   return (
     <div className="movie-carousel">
@@ -36,9 +46,7 @@ const MovieCarousel = ({ title = "Popular Movies", apiUrl }) => {
         {movies.map((movie) => (
           <SwiperSlide key={movie.id}>
             <MovieCard 
-              title={movie.title || movie.name} 
-              posterPath={movie.poster_path}
-              rating={movie.vote_average}
+              movie={movie}
               showRating={false}
             />
           </SwiperSlide>

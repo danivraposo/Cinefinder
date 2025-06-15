@@ -93,9 +93,7 @@ const SearchResults = () => {
         {results.map((item) => (
           <MovieCard
             key={item.id}
-            title={item.media_type === "movie" ? item.title : item.name}
-            posterPath={item.poster_path}
-            rating={item.vote_average}
+            movie={item}
             showRating={false}
           />
         ))}

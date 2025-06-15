@@ -21,7 +21,17 @@ const TopIMDB = () => {
         const data1 = await res1.json();
         const data2 = await res2.json();
         
-        setTopMovies([...(data1.results || []), ...(data2.results || [])]);
+        const movies1 = data1.results?.map(movie => ({
+          ...movie,
+          media_type: "movie"
+        })) || [];
+        
+        const movies2 = data2.results?.map(movie => ({
+          ...movie,
+          media_type: "movie"
+        })) || [];
+        
+        setTopMovies([...movies1, ...movies2]);
       } catch (err) {
         console.error("Error fetching top rated movies:", err);
       }
@@ -37,7 +47,17 @@ const TopIMDB = () => {
         const data1 = await res1.json();
         const data2 = await res2.json();
         
-        setTopTVShows([...(data1.results || []), ...(data2.results || [])]);
+        const shows1 = data1.results?.map(show => ({
+          ...show,
+          media_type: "tv"
+        })) || [];
+        
+        const shows2 = data2.results?.map(show => ({
+          ...show,
+          media_type: "tv"
+        })) || [];
+        
+        setTopTVShows([...shows1, ...shows2]);
       } catch (err) {
         console.error("Error fetching top rated TV shows:", err);
       }

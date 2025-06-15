@@ -11,6 +11,7 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
   const moviePosterPath = posterPath || (movie && movie.poster_path);
   const movieRating = rating || (movie && movie.vote_average);
   const movieId = movie?.id;
+  const mediaType = movie?.media_type || "movie"; // Padrão para "movie" se não especificado
   
   // Estado para controlar se a imagem foi carregada
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -38,7 +39,9 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
   // Função para navegar para a página de detalhes do filme
   const handleCardClick = () => {
     if (movieId) {
-      navigate(`/movie/${movieId}`);
+      // Usar a rota correta com base no tipo de mídia
+      const detailsPath = mediaType === "tv" ? `/tv/${movieId}` : `/movie/${movieId}`;
+      navigate(detailsPath);
     }
   };
 

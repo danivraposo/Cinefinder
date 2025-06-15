@@ -86,7 +86,17 @@ const TVShows = () => {
         const data1 = await res1.json();
         const data2 = await res2.json();
 
-        setTvShows([...(data1.results || []), ...(data2.results || [])]);
+        const shows1 = data1.results?.map(show => ({
+          ...show,
+          media_type: "tv"
+        })) || [];
+        
+        const shows2 = data2.results?.map(show => ({
+          ...show,
+          media_type: "tv"
+        })) || [];
+
+        setTvShows([...shows1, ...shows2]);
       } catch (err) {
         console.error("Error fetching filtered TV shows:", err);
       }
@@ -102,7 +112,13 @@ const TVShows = () => {
           `https://api.themoviedb.org/3/tv/on_the_air?api_key=${apiKey}&language=en-US&page=1`
         );
         const data = await res.json();
-        setPopularTvShows(data.results || []);
+        
+        const shows = data.results?.map(show => ({
+          ...show,
+          media_type: "tv"
+        })) || [];
+        
+        setPopularTvShows(shows);
       } catch (err) {
         console.error("Error fetching popular TV shows:", err);
       }
