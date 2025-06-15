@@ -1,0 +1,70 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d1117;
+  padding: 15px 30px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  border-bottom: 1px solid #222;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.navbar-logo img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+  color: #facc15;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-actions input {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1f2937;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.user-icon {
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.user-icon:hover {
+  color: #facc15;
+}

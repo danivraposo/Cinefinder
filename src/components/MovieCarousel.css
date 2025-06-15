@@ -1,0 +1,16 @@
+.movie-carousel {
+    margin: 2rem 0;
+    padding: 0 1rem;
+  }
+  
+  .carousel-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #fff;
+  }
+  
