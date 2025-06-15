@@ -19,9 +19,13 @@ function Navbar() {
     }
   };
 
+  const goToHome = () => {
+    navigate('/');
+  };
+
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
+      <div className="navbar-logo" onClick={goToHome} style={{ cursor: 'pointer' }}>
         <img src={logo} alt="CineFinder" />
         <span>CineFinder</span>
       </div>

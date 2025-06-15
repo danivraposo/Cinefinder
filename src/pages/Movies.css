@@ -125,8 +125,8 @@
 }
 
 .carousel-container {
-  margin: 1.5rem 0 2.5rem;
-  padding: 0;
+  padding: 10px 0;
+  margin-bottom: 20px;
 }
 
 .swiper-slide {
@@ -178,5 +178,53 @@
 .tab-navigation button.active-tab {
   background-color: #00e0ff;
   color: #0b1120;
+}
+
+.carousel-slide {
+  height: 300px;
+  width: 100%;
+  padding: 0 5px;
+  position: relative;
+}
+
+.carousel-slide .movie-card {
+  height: 100%;
+}
+
+.swiper-slide {
+  height: auto;
+}
+
+/* Ajuste para garantir que os títulos sejam visíveis */
+.carousel-slide .movie-title {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  padding: 8px !important;
+  font-size: 12px !important;
+  text-align: center !important;
+  z-index: 10 !important;
+}
+
+.movie-grid .movie-title {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  padding: 8px !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  z-index: 10 !important;
 }
 

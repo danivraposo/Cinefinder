@@ -7,6 +7,7 @@ import Movies from "./pages/Movies";
 import TvShows from "./pages/TVShows";
 import TopIMDB from "./pages/TopIMDB";
 import SearchResults from "./pages/SearchResults";
+import MovieDetails from "./pages/MovieDetails";
 import "./App.css";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/tv-shows" element={<TvShows />} />
           <Route path="/top-imdb" element={<TopIMDB />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
         </Routes>
       </main>
       <Footer />

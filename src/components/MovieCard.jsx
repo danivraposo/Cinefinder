@@ -1,12 +1,16 @@
 // src/components/MovieCard.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MovieCard.css";
 
 const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => {
+  const navigate = useNavigate();
+  
   // Suporte para o formato antigo (objeto movie)
-  const movieTitle = title || (movie && (movie.title || movie.name));
+  const movieTitle = title || (movie && (movie.title || movie.name)) || "Sem título";
   const moviePosterPath = posterPath || (movie && movie.poster_path);
   const movieRating = rating || (movie && movie.vote_average);
+  const movieId = movie?.id;
   
   // Estado para controlar se a imagem foi carregada
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -30,9 +34,27 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
+  
+  // Função para navegar para a página de detalhes do filme
+  const handleCardClick = () => {
+    if (movieId) {
+      navigate(`/movie/${movieId}`);
+    }
+  };
+
+  // Truncar o título se for muito longo
+  const truncateTitle = (text, maxLength = 25) => {
+    if (!text) return 'Sem título';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
 
   return (
-    <div className={`movie-card ${imageLoaded ? 'image-loaded' : 'image-loading'}`}>
+    <div 
+      className={`movie-card ${imageLoaded ? 'image-loaded' : 'image-loading'}`}
+      onClick={handleCardClick}
+      style={{ cursor: movieId ? 'pointer' : 'default' }}
+    >
       <div className="movie-poster">
         <img 
           src={imageUrl} 
@@ -45,7 +67,7 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
             <span>{movieRating.toFixed(1)}</span>
           </div>
         )}
-        <h3 className="movie-title">{movieTitle}</h3>
+        <h3 className="movie-title">{truncateTitle(movieTitle)}</h3>
       </div>
     </div>
   );

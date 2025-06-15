@@ -59,7 +59,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: #ffffff;
-  z-index: 2;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 0;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Overlay para dar um efeito de gradiente na parte inferior da imagem */
@@ -98,5 +103,16 @@
 @keyframes spin {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Estilos específicos para o carrossel */
+.carousel-slide .movie-card {
+  height: 100%;
+}
+
+.carousel-slide .movie-title {
+  font-size: 12px;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
 }
   

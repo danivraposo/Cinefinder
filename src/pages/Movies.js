@@ -135,11 +135,9 @@ const Movies = () => {
         >
           {upcomingMovies.map((movie) => (
             <SwiperSlide key={movie.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                alt={movie.title}
-                style={{ borderRadius: "10px", width: "100%" }}
-              />
+              <div className="carousel-slide">
+                <MovieCard movie={movie} showRating={false} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

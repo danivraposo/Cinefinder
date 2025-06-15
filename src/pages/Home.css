@@ -76,3 +76,13 @@
   left: 0;
   color: #facc15;
 }
+
+/* Estilos específicos para os títulos dos filmes na página Home */
+.home-container .movie-title {
+  font-size: 12px !important;
+  padding: 6px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}

@@ -7,6 +7,8 @@
   color: white;
   font-family: 'Segoe UI', sans-serif;
   border-bottom: 1px solid #222;
+  position: relative;
+  z-index: 100;
 }
 
 .navbar-logo {
@@ -14,6 +16,11 @@
   align-items: center;
   font-size: 1.3rem;
   font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
 }
 
 .navbar-logo img {

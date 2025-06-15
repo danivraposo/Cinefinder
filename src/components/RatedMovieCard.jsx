@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import "./MovieCard.css";
 import "./RatedMovieCard.css";
 
 const RatedMovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+  
   // Estado para controlar se a imagem foi carregada
   const [imageLoaded, setImageLoaded] = useState(false);
   
@@ -28,9 +31,29 @@ const RatedMovieCard = ({ movie }) => {
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
+  
+  // Função para navegar para a página de detalhes do filme
+  const handleCardClick = () => {
+    if (movie.id) {
+      navigate(`/movie/${movie.id}`);
+    }
+  };
+
+  // Truncar o título se for muito longo
+  const truncateTitle = (text, maxLength = 25) => {
+    if (!text) return 'Sem título';
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const title = movie.title || movie.name || "Sem título";
 
   return (
-    <div className={`movie-card rated-movie-card ${imageLoaded ? 'image-loaded' : 'image-loading'}`}>
+    <div 
+      className={`movie-card rated-movie-card ${imageLoaded ? 'image-loaded' : 'image-loading'}`}
+      onClick={handleCardClick}
+      style={{ cursor: movie.id ? 'pointer' : 'default' }}
+    >
       <div className="movie-poster">
         <div className="rating-badge">
           <FaStar className="star-icon" />
@@ -38,11 +61,11 @@ const RatedMovieCard = ({ movie }) => {
         </div>
         <img 
           src={imageUrl} 
-          alt={movie.title || movie.name} 
+          alt={title} 
           onError={handleImageError}
           onLoad={handleImageLoad}
         />
-        <h3 className="movie-title">{movie.title || movie.name}</h3>
+        <h3 className="movie-title">{truncateTitle(title)}</h3>
       </div>
     </div>
   );

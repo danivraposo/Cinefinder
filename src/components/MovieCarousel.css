@@ -52,3 +52,9 @@
     height: 100%;
   }
   
+  /* Ajustar o tamanho do título nos cartazes da página Home */
+  .movie-carousel .movie-title {
+    font-size: 12px !important;
+    padding: 8px !important;
+  }
+  

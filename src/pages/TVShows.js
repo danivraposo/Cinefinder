@@ -134,11 +134,9 @@ const TVShows = () => {
         >
           {popularTvShows.map((show) => (
             <SwiperSlide key={show.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w300${show.poster_path}`}
-                alt={show.name}
-                style={{ borderRadius: "10px", width: "100%" }}
-              />
+              <div className="carousel-slide">
+                <MovieCard movie={show} showRating={false} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
