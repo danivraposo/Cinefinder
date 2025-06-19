@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 
 const UserProfile = ({ isOpen, onClose }) => {
@@ -58,7 +59,7 @@ const UserProfile = ({ isOpen, onClose }) => {
 
         <div className="tab-content">
           {activeTab === 'watchlist' && (
-            <WatchlistTab watchlist={currentUser.watchlist} />
+            <WatchlistTab watchlist={currentUser.watchlist} onClose={onClose} />
           )}
           
           {activeTab === 'comments' && (
@@ -80,7 +81,9 @@ const UserProfile = ({ isOpen, onClose }) => {
   );
 };
 
-const WatchlistTab = ({ watchlist }) => {
+const WatchlistTab = ({ watchlist, onClose }) => {
+  const navigate = useNavigate();
+
   if (!watchlist || watchlist.length === 0) {
     return (
       <div className="empty-state">
@@ -90,25 +93,55 @@ const WatchlistTab = ({ watchlist }) => {
     );
   }
 
+  const handleItemClick = (item) => {
+    const mediaType = item.media_type || (item.first_air_date ? 'tv' : 'movie');
+    const path = mediaType === 'tv' ? `/tv/${item.id}` : `/movie/${item.id}`;
+    onClose();
+    navigate(path);
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Data desconhecida';
+    
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Data inválida';
+    
+    return date.toLocaleDateString('pt-BR', {
+      year: 'numeric'
+    });
+  };
+
+  const getMediaType = (item) => {
+    const mediaType = item.media_type || (item.first_air_date ? 'tv' : 'movie');
+    return mediaType === 'tv' ? 'Série' : 'Filme';
+  };
+
   return (
     <div className="watchlist-container">
       <h3>Minha Watchlist</h3>
       <div className="watchlist-items">
         {watchlist.map((item) => (
-          <div key={item.id} className="watchlist-item">
-            <div className="watchlist-item-poster">
-              {item.poster_path ? (
-                <img 
-                  src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} 
-                  alt={item.title || item.name} 
-                />
-              ) : (
-                <div className="no-poster">Sem imagem</div>
-              )}
-            </div>
-            <div className="watchlist-item-info">
-              <h4>{item.title || item.name}</h4>
-              <p>{item.release_date || item.first_air_date}</p>
+          <div 
+            key={item.id} 
+            className="watchlist-item"
+            onClick={() => handleItemClick(item)}
+          >
+            <div className="watchlist-item-content">
+              <div className="watchlist-item-poster">
+                <span className="media-type-badge">{getMediaType(item)}</span>
+                {item.poster_path ? (
+                  <img 
+                    src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} 
+                    alt={item.title || item.name} 
+                  />
+                ) : (
+                  <div className="no-poster">Sem imagem</div>
+                )}
+              </div>
+              <div className="watchlist-item-info">
+                <h4>{item.title || item.name}</h4>
+                <p>{formatDate(item.release_date || item.first_air_date)}</p>
+              </div>
             </div>
           </div>
         ))}

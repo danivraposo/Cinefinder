@@ -1,31 +1,62 @@
 .watchlist-button {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   color: #fff;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  padding: 8px 16px;
+  border: 1px solid #e50914;
+  border-radius: 20px;
+  padding: 10px 18px;
   font-size: 0.9rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  min-width: 180px;
 }
 
 .watchlist-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(229, 9, 20, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(229, 9, 20, 0.4);
 }
 
 .watchlist-button.in-watchlist {
   background-color: #e50914;
   border-color: #e50914;
+  color: white;
 }
 
 .watchlist-button.in-watchlist:hover {
   background-color: #f40612;
+  box-shadow: 0 6px 12px rgba(244, 6, 18, 0.5);
 }
 
 .watchlist-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.watchlist-button svg {
+  font-size: 1.1rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .watchlist-button {
+    min-width: 150px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .watchlist-button {
+    min-width: 120px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
 } 

@@ -174,4 +174,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.tv-recommendations-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
 } 

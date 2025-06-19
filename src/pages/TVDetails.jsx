@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FaStar, FaPlay, FaShare, FaHeart, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import WatchlistButton from '../components/WatchlistButton';
 import CommentSection from '../components/CommentSection';
+import RecommendationSection from '../components/RecommendationSection';
 import './MovieDetails.css';
 import './TVDetails.css';
 
@@ -144,7 +145,7 @@ const TVDetails = () => {
             <button className="action-button share-button">
               <FaShare />
             </button>
-            <WatchlistButton mediaItem={show} />
+            <WatchlistButton mediaItem={{...show, media_type: 'tv'}} />
           </div>
         </div>
 
@@ -285,6 +286,11 @@ const TVDetails = () => {
       {/* Seção de comentários */}
       <div className="tv-comments-container">
         <CommentSection mediaId={id} mediaType="tv" />
+      </div>
+      
+      {/* Seção de recomendações */}
+      <div className="tv-recommendations-container">
+        <RecommendationSection mediaId={id} mediaType="tv" />
       </div>
     </div>
   );
