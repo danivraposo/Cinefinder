@@ -1,3 +1,57 @@
+# CineFinder
+
+CineFinder é uma aplicação web para descobrir e explorar filmes e séries de TV.
+
+## Sistema de Autenticação e Permissões
+
+A aplicação possui um sistema de autenticação com dois usuários pré-definidos:
+
+### Usuários disponíveis
+
+1. **Manuel (Cinéfilo)**
+   - Username: manuel
+   - Senha: senha123
+   - Permissões:
+     - Consultar a lista de séries e filmes disponíveis
+     - Fazer comentários em séries e filmes
+     - Adicionar séries e filmes a uma "watchlist"
+     - Ver e editar os seus próprios comentários
+
+2. **José (Admin)**
+   - Username: jose
+   - Senha: admin123
+   - Permissões:
+     - Todas as funcionalidades do cinófilo
+     - Remover comentários de qualquer utilizador
+     - Gerir utilizadores (criar, editar, desativar)
+
+### Funcionalidades Implementadas
+
+- **Autenticação**: Login e logout usando username e password
+- **Watchlist**: Adicionar/remover filmes e séries para assistir mais tarde
+- **Comentários**: Sistema de comentários em filmes e séries
+- **Perfil de Usuário**: Interface para gerenciar watchlist e comentários
+- **Painel de Administração**: Interface para gerenciar usuários (apenas para admin)
+
+## Tecnologias Utilizadas
+
+- React
+- React Router
+- Context API para gerenciamento de estado
+- LocalStorage para persistência de dados
+- CSS para estilização
+
+## Como executar o projeto
+
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Execute o projeto: `npm start`
+4. Acesse `http://localhost:3000`
+
+## API
+
+Este projeto utiliza a API do The Movie Database (TMDB) para obter informações sobre filmes e séries.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

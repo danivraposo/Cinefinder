@@ -1,0 +1,31 @@
+.watchlist-button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.watchlist-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.watchlist-button.in-watchlist {
+  background-color: #e50914;
+  border-color: #e50914;
+}
+
+.watchlist-button.in-watchlist:hover {
+  background-color: #f40612;
+}
+
+.watchlist-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+} 

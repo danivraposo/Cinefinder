@@ -114,3 +114,28 @@
 .user-icon:hover {
   color: #facc15;
 }
+
+.user-profile {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e50914;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.user-icon {
+  font-size: 20px;
+  color: #fff;
+}

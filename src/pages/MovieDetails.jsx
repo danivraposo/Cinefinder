@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaStar, FaPlay, FaShare, FaHeart } from 'react-icons/fa';
+import { FaStar, FaPlay, FaShare } from 'react-icons/fa';
+import WatchlistButton from '../components/WatchlistButton';
+import CommentSection from '../components/CommentSection';
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -100,9 +102,7 @@ const MovieDetails = () => {
             <button className="action-button share-button">
               <FaShare />
             </button>
-            <button className="action-button favorite-button">
-              <FaHeart />
-            </button>
+            <WatchlistButton mediaItem={movie} />
           </div>
         </div>
 
@@ -166,6 +166,10 @@ const MovieDetails = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      <div className="movie-comments-container">
+        <CommentSection mediaId={id} mediaType="movie" />
       </div>
     </div>
   );

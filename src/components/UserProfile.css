@@ -1,0 +1,491 @@
+.profile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.profile-content {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+}
+
+.profile-header h2 {
+  margin: 0;
+  color: #e50914;
+  font-size: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #fff;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e50914;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.user-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.user-role {
+  margin: 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.profile-tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  color: #999;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-button:hover {
+  color: #fff;
+}
+
+.tab-button.active {
+  color: #e50914;
+  border-bottom: 2px solid #e50914;
+}
+
+.tab-content {
+  min-height: 300px;
+}
+
+.profile-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.logout-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #555;
+}
+
+/* Estilos para a aba Watchlist */
+.watchlist-container {
+  padding: 10px 0;
+}
+
+.watchlist-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #e50914;
+}
+
+.watchlist-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.watchlist-item {
+  background-color: #222;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.watchlist-item:hover {
+  transform: translateY(-5px);
+}
+
+.watchlist-item-poster {
+  height: 250px;
+  overflow: hidden;
+}
+
+.watchlist-item-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-poster {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  color: #999;
+}
+
+.watchlist-item-info {
+  padding: 10px;
+}
+
+.watchlist-item-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.watchlist-item-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* Estilos para a aba Comentários */
+.comments-container {
+  padding: 10px 0;
+}
+
+.comments-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #e50914;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-item {
+  background-color: #222;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.comment-text {
+  margin: 0 0 15px 0;
+  line-height: 1.4;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.comment-actions button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comment-actions button:hover {
+  background-color: #555;
+}
+
+.comment-edit textarea {
+  width: 100%;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.edit-actions button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-actions button:first-child {
+  background-color: #e50914;
+}
+
+.edit-actions button:first-child:hover {
+  background-color: #f40612;
+}
+
+.edit-actions button:last-child:hover {
+  background-color: #555;
+}
+
+/* Estilos para a aba Admin */
+.admin-container {
+  padding: 10px 0;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-header h3 {
+  margin: 0;
+  color: #e50914;
+}
+
+.create-user-button {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-user-button:hover {
+  background-color: #f40612;
+}
+
+.user-form {
+  background-color: #222;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.user-form .form-group {
+  margin-bottom: 15px;
+}
+
+.user-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.user-form input,
+.user-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.user-form input:focus,
+.user-form select:focus {
+  outline: none;
+  border-color: #e50914;
+}
+
+.submit-button {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: #f40612;
+}
+
+.users-list {
+  overflow-x: auto;
+}
+
+.users-list table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.users-list th,
+.users-list td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+  vertical-align: middle;
+  height: 48px;
+  line-height: 1.2;
+}
+
+.users-list th:last-child,
+.users-list td:last-child {
+  width: 180px;
+}
+
+.users-list th {
+  background-color: #222;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.deactivate-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deactivate-button:hover {
+  background-color: #777;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  text-align: center;
+  color: #999;
+}
+
+.empty-state p {
+  margin: 5px 0;
+}
+
+/* Estilos para os botões de ação na tabela de usuários */
+.user-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 32px;
+}
+
+.delete-button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #f44336;
+}
+
+/* Estilo para linha de usuário inativo */
+.inactive-user {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #999;
+}
+
+/* Botão de reativação */
+.activate-button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.activate-button:hover {
+  background-color: #4caf50;
+}
+
+.action-placeholder {
+  display: inline-block;
+  min-height: 28px;
+}
