@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MovieCarousel from "../components/MovieCarousel";
+import { useAuth } from "../contexts/AuthContext";
 import "./Home.css";
 
-const Home = () => {
+const Home = ({ logout = false }) => {
   const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+  const { logout: authLogout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (logout) {
+      authLogout();
+      navigate('/', { replace: true });
+    }
+  }, [logout, authLogout, navigate]);
 
   const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
   const popularTV = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=1`;
@@ -11,49 +22,47 @@ const Home = () => {
   return (
     <div className="home-container">
       <section className="section">
-        <MovieCarousel title="🎬 Popular Movies" apiUrl={popularMovies} />
+        <MovieCarousel title="🎬 Filmes Populares" apiUrl={popularMovies} />
       </section>
 
       <section className="section">
-        <MovieCarousel title="📺 Popular TV Shows" apiUrl={popularTV} />
+        <MovieCarousel title="📺 Séries Populares" apiUrl={popularTV} />
       </section>
 
       <section className="info-section">
-        <h1>CineFinder – Discover Movies and Series Online</h1>
+        <h1>CineFinder – Descubra Filmes e Séries Online</h1>
         <p>
-          CineFinder is the best place to find information about movies and TV
-          shows quickly and easily. Here, you can explore synopses, cast
-          details, trailers, and ratings without needing to sign up or pay
-          anything.
+          CineFinder é o melhor lugar para encontrar informações sobre filmes e séries
+          de TV de forma rápida e fácil. Aqui, você pode explorar sinopses, detalhes
+          do elenco, trailers e avaliações sem precisar se cadastrar ou pagar nada.
         </p>
       </section>
 
       <section className="info-section">
-        <h2>What is CineFinder?</h2>
+        <h2>O que é o CineFinder?</h2>
         <p>
-          CineFinder is a platform designed to gather information about movies
-          and TV shows, making it easier for you to choose what to watch.
+          CineFinder é uma plataforma projetada para reunir informações sobre filmes
+          e séries de TV, facilitando sua escolha sobre o que assistir.
         </p>
       </section>
 
       <section className="info-section">
-        <h2>Why use CineFinder?</h2>
+        <h2>Por que usar o CineFinder?</h2>
         <ul>
           <li>
-            Extensive Catalog: Discover thousands of titles, from classics to
-            the latest releases.
+            Catálogo Extenso: Descubra milhares de títulos, desde clássicos até
+            os lançamentos mais recentes.
           </li>
           <li>
-            Complete Information: Read synopses, check the cast, watch trailers,
-            and see ratings.
+            Informações Completas: Leia sinopses, confira o elenco, assista trailers
+            e veja avaliações.
           </li>
           <li>
-            Fast and Simple Experience: Optimized interface for both desktop and
-            mobile.
+            Experiência Rápida e Simples: Interface otimizada tanto para desktop
+            quanto para dispositivos móveis.
           </li>
           <li>
-            No Registration or Payments: Access everything for free, with no
-            hassle.
+            Sem Cadastro ou Pagamentos: Acesse tudo gratuitamente, sem complicações.
           </li>
         </ul>
       </section>

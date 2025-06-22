@@ -35,26 +35,52 @@
   }
   
   .swiper-slide {
-    transition: transform 0.3s ease;
-    height: 300px;
+    height: auto;
+    aspect-ratio: 2/3;
+  }
+  
+  .movie-carousel .swiper-slide {
+    height: auto;
+    aspect-ratio: 2/3;
+  }
+  
+  .movie-carousel .movie-title {
+    font-size: 14px;
+    padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .movie-carousel .movie-card {
     height: 100%;
-  }
-  
-  /* Garantir que os cartazes do carousel tenham altura fixa */
-  .movie-carousel .swiper-slide .movie-card {
-    height: 300px;
+    width: 100%;
+    aspect-ratio: 2/3;
   }
   
   .movie-carousel .swiper-slide .movie-poster {
     height: 100%;
+    width: 100%;
   }
   
-  /* Ajustar o tamanho do título nos cartazes da página Home */
-  .movie-carousel .movie-title {
-    font-size: 12px !important;
-    padding: 8px !important;
+  /* Ajustes responsivos */
+  @media (max-width: 768px) {
+    .movie-carousel {
+      margin: 1.5rem 0;
+    }
+    
+    .carousel-title {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .movie-carousel {
+      margin: 1rem 0;
+    }
+    
+    .carousel-title {
+      font-size: 1.2rem;
+    }
   }
   

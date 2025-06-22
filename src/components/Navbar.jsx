@@ -1,18 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import { FaUser, FaSearch } from 'react-icons/fa'; // Profile icon and Search icon
-import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaSearch, FaList, FaPlus, FaStar, FaTimes, FaBars, FaSignOutAlt } from 'react-icons/fa';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import LoginModal from './LoginModal';
-import UserProfile from './UserProfile';
-import logo from '../logo.png'; // Importar o logo diretamente
+import logo from '../logo.png';
 
-function Navbar() {
+const Navbar = () => {
+  const { currentUser, isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showUserProfile, setShowUserProfile] = useState(false);
-  const { currentUser, isAuthenticated } = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setShowMenu(false);
+    setShowUserMenu(false);
+  }, [location.pathname]);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+    if (showUserMenu) setShowUserMenu(false);
+  };
+
+  const toggleUserMenu = () => {
+    setShowUserMenu(!showUserMenu);
+    if (showMenu) setShowMenu(false);
+  };
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+    setShowMenu(false);
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -31,26 +62,35 @@ function Navbar() {
 
   const handleUserIconClick = () => {
     if (isAuthenticated) {
-      setShowUserProfile(true);
+      setShowUserMenu(!showUserMenu);
     } else {
       setShowLoginModal(true);
     }
   };
 
+  // Fechar o menu quando clicar fora dele
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showUserMenu && !event.target.closest('.user-profile') && !event.target.closest('.user-menu')) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
+
   return (
-    <>
-      <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-container">
         <div className="navbar-logo" onClick={goToHome} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="CineFinder" />
           <span>CineFinder</span>
         </div>
-        <ul className="navbar-links">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/movies">Movies</Link></li>
-          <li><Link to="/tv-shows">TV Shows</Link></li>
-          <li><Link to="/top-imdb">Top IMDB</Link></li>
-        </ul>
-        <div className="navbar-actions">
+
+        <div className="navbar-search">
           <form onSubmit={handleSearch}>
             <input 
               type="text" 
@@ -62,29 +102,95 @@ function Navbar() {
               <FaSearch />
             </button>
           </form>
-          <div className="user-profile" onClick={handleUserIconClick}>
-            {isAuthenticated && currentUser ? (
-              <div className="user-avatar">
-                {currentUser.name.charAt(0).toUpperCase()}
-              </div>
-            ) : (
-              <FaUser className="user-icon" />
-            )}
-          </div>
         </div>
-      </nav>
 
-      <LoginModal 
-        isOpen={showLoginModal} 
-        onClose={() => setShowLoginModal(false)} 
-      />
-      
-      <UserProfile 
-        isOpen={showUserProfile} 
-        onClose={() => setShowUserProfile(false)} 
-      />
-    </>
+        <div className="navbar-toggle" onClick={toggleMenu}>
+          {showMenu ? <FaTimes /> : <FaBars />}
+        </div>
+
+        <ul className={`navbar-menu ${showMenu ? 'active' : ''}`}>
+          <li>
+            <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/movies" className={({ isActive }) => isActive ? 'active' : ''}>
+              Filmes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/tv-shows" className={({ isActive }) => isActive ? 'active' : ''}>
+              Séries
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/top-imdb" className={({ isActive }) => isActive ? 'active' : ''}>
+              Top IMDB
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/featured-lists" className={({ isActive }) => isActive ? 'active' : ''}>
+              <FaStar /> Listas em Destaque
+            </NavLink>
+          </li>
+        </ul>
+
+        <div className="navbar-user">
+          {isAuthenticated ? (
+            <>
+              <div className="user-avatar" onClick={handleUserIconClick}>
+                {currentUser.name.charAt(0)}
+              </div>
+              <div className={`user-menu ${showUserMenu ? 'active' : ''}`}>
+                <div className="user-menu-header">
+                  <div className="user-avatar-large">{currentUser.name.charAt(0)}</div>
+                  <div className="user-info">
+                    <span className="user-name">{currentUser.name}</span>
+                    <span className="user-role">{currentUser.role === 'admin' ? 'Administrador' : 'Cinéfilo'}</span>
+                  </div>
+                </div>
+                <ul>
+                  <li>
+                    <Link to="/profile">
+                      <FaUser /> Perfil
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/watchlist">
+                      <FaSearch /> Watchlist
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/my-lists">
+                      <FaList /> Minhas Listas
+                    </Link>
+                  </li>
+                  {currentUser.role === 'admin' && (
+                    <li>
+                      <Link to="/admin/featured-lists">
+                        <FaStar /> Gerenciar Listas
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link to="/logout">
+                      <FaSignOutAlt /> Sair
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <button className="login-button" onClick={handleLoginClick}>
+              Entrar
+            </button>
+          )}
+        </div>
+      </div>
+      <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
+    </nav>
   );
-}
+};
 
 export default Navbar;

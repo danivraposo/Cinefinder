@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RatedMovieCard from "../components/RatedMovieCard";
+import MovieCard from "../components/MovieCard";
 import "./Movies.css";
 
 const TopIMDB = () => {
@@ -71,7 +71,7 @@ const TopIMDB = () => {
   }, [activeTab, page]);
 
   return (
-    <div className="movies-page">
+    <div className="movies-page top-imdb-page">
       <h1 className="section-title">| Top Rated on IMDB</h1>
       
       <div className="tab-navigation">
@@ -91,8 +91,8 @@ const TopIMDB = () => {
 
       <div className="movie-grid">
         {activeTab === "movies" 
-          ? topMovies.map((movie) => <RatedMovieCard key={movie.id} movie={movie} />)
-          : topTVShows.map((show) => <RatedMovieCard key={show.id} movie={show} />)
+          ? topMovies.map((movie) => <MovieCard key={movie.id} movie={movie} showRating={true} />)
+          : topTVShows.map((show) => <MovieCard key={show.id} movie={show} showRating={true} />)
         }
       </div>
 

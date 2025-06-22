@@ -31,8 +31,8 @@ const LoginModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Login</h2>
           <button className="close-button" onClick={onClose}>×</button>
@@ -42,13 +42,13 @@ const LoginModal = ({ isOpen, onClose }) => {
           {error && <div className="error-message">{error}</div>}
           
           <div className="form-group">
-            <label htmlFor="username">Nome de usuário</label>
+            <label htmlFor="username">Nome de utilizador</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Digite seu nome de usuário"
+              placeholder="Digite seu nome de utilizador"
             />
           </div>
           
@@ -68,7 +68,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           </div>
           
           <div className="login-info">
-            <p>Usuários disponíveis:</p>
+            <p>Utilizadores disponíveis:</p>
             <ul>
               <li>manuel / senha123 (cinéfilo)</li>
               <li>jose / admin123 (admin)</li>

@@ -10,7 +10,7 @@ const WatchlistButton = ({ mediaItem }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [lastClickTime, setLastClickTime] = useState(0);
 
-  // Verificar se o item já está na watchlist do usuário
+  // Verificar se o item já está na watchlist do utilizador
   useEffect(() => {
     if (currentUser && currentUser.watchlist && mediaItem) {
       const found = currentUser.watchlist.some(item => item.id === mediaItem.id);

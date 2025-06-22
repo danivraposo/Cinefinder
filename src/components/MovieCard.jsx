@@ -1,6 +1,7 @@
 // src/components/MovieCard.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 import "./MovieCard.css";
 
 const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => {
@@ -52,6 +53,10 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
     return text.substring(0, maxLength) + '...';
   };
 
+  const posterUrl = moviePosterPath
+    ? `https://image.tmdb.org/t/p/w500${moviePosterPath}`
+    : 'https://via.placeholder.com/500x750?text=Sem+Imagem';
+
   return (
     <div 
       className={`movie-card ${imageLoaded ? 'image-loaded' : 'image-loading'}`}
@@ -60,7 +65,7 @@ const MovieCard = ({ title, posterPath, rating, movie, showRating = false }) => 
     >
       <div className="movie-poster">
         <img 
-          src={imageUrl} 
+          src={posterUrl} 
           alt={movieTitle} 
           onError={handleImageError}
           onLoad={handleImageLoad}

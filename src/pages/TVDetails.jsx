@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { FaStar, FaPlay, FaShare, FaHeart, FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FaStar, FaPlay, FaShare, FaHeart, FaAngleDown, FaAngleUp, FaList, FaPlus, FaTimes } from 'react-icons/fa';
+import { useAuth } from '../contexts/AuthContext';
 import WatchlistButton from '../components/WatchlistButton';
 import CommentSection from '../components/CommentSection';
 import RecommendationSection from '../components/RecommendationSection';
@@ -9,6 +10,8 @@ import './TVDetails.css';
 
 const TVDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { currentUser, getUserLists, addToList } = useAuth();
   const [show, setShow] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [seasonDetails, setSeasonDetails] = useState(null);
@@ -16,6 +19,9 @@ const TVDetails = () => {
   const [seasonLoading, setSeasonLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedEpisodes, setExpandedEpisodes] = useState({});
+  const [showListMenu, setShowListMenu] = useState(false);
+  const [userLists, setUserLists] = useState([]);
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   useEffect(() => {
     const fetchTVDetails = async () => {
@@ -78,6 +84,45 @@ const TVDetails = () => {
     }));
   };
 
+  // Função para adicionar a uma lista
+  const handleAddToSpecificList = (listId) => {
+    if (!currentUser || !show) return;
+    
+    const mediaItem = {
+      id: show.id,
+      title: show.name,
+      poster_path: show.poster_path,
+      backdrop_path: show.backdrop_path,
+      release_date: show.first_air_date,
+      media_type: 'tv',
+      vote_average: show.vote_average
+    };
+    
+    const result = addToList(listId, mediaItem);
+    
+    if (result.success) {
+      setMessage({ text: 'Adicionado à lista', type: 'success' });
+    } else {
+      setMessage({ text: 'Erro ao adicionar', type: 'error' });
+    }
+    
+    setShowListMenu(false);
+    setTimeout(() => setMessage({ text: '', type: '' }), 2500);
+  };
+
+  // Função para mostrar o menu de listas
+  const handleShowListMenu = () => {
+    if (!currentUser) {
+      setMessage({ text: 'Faça login primeiro', type: 'error' });
+      setTimeout(() => setMessage({ text: '', type: '' }), 2500);
+      return;
+    }
+    
+    const lists = getUserLists();
+    setUserLists(lists);
+    setShowListMenu(!showListMenu);
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -134,6 +179,12 @@ const TVDetails = () => {
         <h1>{show.name}</h1>
       </div>
 
+      {message.text && (
+        <div className={`message-toast ${message.type}`}>
+          {message.text}
+        </div>
+      )}
+
       <div className="movie-details-content">
         <div className="movie-poster-container">
           <img 
@@ -142,10 +193,55 @@ const TVDetails = () => {
             className="movie-poster"
           />
           <div className="action-buttons">
-            <button className="action-button share-button">
-              <FaShare />
-            </button>
             <WatchlistButton mediaItem={{...show, media_type: 'tv'}} />
+            <button 
+              className="action-button list-button"
+              onClick={handleShowListMenu}
+              title="Adicionar a uma lista"
+            >
+              <FaList />
+            </button>
+            
+            {/* Menu de listas */}
+            {showListMenu && (
+              <div className="list-menu">
+                <div className="list-menu-header">
+                  <h4>Adicionar a:</h4>
+                  <button 
+                    onClick={() => setShowListMenu(false)}
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
+                
+                {userLists.length === 0 ? (
+                  <p className="no-lists-message">Você não tem listas</p>
+                ) : (
+                  <ul className="lists-options">
+                    {userLists.map(list => (
+                      <li key={list.id}>
+                        <button 
+                          onClick={() => handleAddToSpecificList(list.id)}
+                        >
+                          <FaPlus /> {list.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                
+                <div className="list-menu-footer">
+                  <button 
+                    onClick={() => {
+                      navigate('/profile?tab=lists&new=true');
+                      setShowListMenu(false);
+                    }}
+                  >
+                    Criar nova lista
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -240,16 +336,15 @@ const TVDetails = () => {
           </div>
         ) : seasonDetails ? (
           <div className="episodes-list">
-            <h3>Episódios - Temporada {seasonDetails.season_number}</h3>
             {seasonDetails.episodes.map(episode => (
-              <div className="episode-card" key={episode.id}>
+              <div key={episode.id} className="episode-item">
                 <div 
-                  className="episode-header" 
+                  className="episode-header"
                   onClick={() => toggleEpisode(episode.id)}
                 >
-                  <div className="episode-title">
-                    <span className="episode-number">E{episode.episode_number}.</span> 
-                    {episode.name}
+                  <div className="episode-title-container">
+                    <span className="episode-number">{episode.episode_number}.</span>
+                    <span className="episode-title">{episode.name}</span>
                   </div>
                   <div className="episode-toggle">
                     {expandedEpisodes[episode.id] ? <FaAngleUp /> : <FaAngleDown />}
@@ -260,17 +355,16 @@ const TVDetails = () => {
                   <div className="episode-details">
                     {episode.still_path && (
                       <img 
-                        src={`https://image.tmdb.org/t/p/w300${episode.still_path}`} 
-                        alt={`${episode.name} still`} 
+                        src={`https://image.tmdb.org/t/p/w300${episode.still_path}`}
+                        alt={episode.name}
                         className="episode-image"
                       />
                     )}
-                    <div className="episode-info">
-                      <p className="episode-overview">{episode.overview || "Sem descrição disponível."}</p>
-                      <div className="episode-meta">
-                        <span>Duração: {episode.runtime ? `${episode.runtime} min` : 'N/A'}</span>
-                        <span>Data: {formatReleaseDate(episode.air_date)}</span>
+                    <div className="episode-overview">
+                      <p>{episode.overview || "Sem descrição disponível."}</p>
+                      <div className="episode-info">
                         <span>Avaliação: <FaStar className="star-icon" /> {episode.vote_average.toFixed(1)}</span>
+                        <span>Duração: {episode.runtime ? `${episode.runtime} min` : 'N/A'}</span>
                       </div>
                     </div>
                   </div>
@@ -279,17 +373,17 @@ const TVDetails = () => {
             ))}
           </div>
         ) : (
-          <p className="no-season-data">Selecione uma temporada para ver os episódios.</p>
+          <div className="no-season-data">
+            <p>Nenhuma informação disponível para esta temporada.</p>
+          </div>
         )}
       </div>
       
-      {/* Seção de comentários */}
-      <div className="tv-comments-container">
+      <div className="movie-comments-container">
         <CommentSection mediaId={id} mediaType="tv" />
       </div>
       
-      {/* Seção de recomendações */}
-      <div className="tv-recommendations-container">
+      <div className="movie-recommendations-container">
         <RecommendationSection mediaId={id} mediaType="tv" />
       </div>
     </div>

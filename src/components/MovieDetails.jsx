@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FaStar, FaPlay, FaShare, FaList, FaPlus, FaTimes } from 'react-icons/fa';
-import { useAuth } from '../contexts/AuthContext';
+import { useParams } from 'react-router-dom';
+import { FaStar, FaPlay, FaShare } from 'react-icons/fa';
 import WatchlistButton from '../components/WatchlistButton';
 import CommentSection from '../components/CommentSection';
 import RecommendationSection from '../components/RecommendationSection';
@@ -9,14 +8,9 @@ import './MovieDetails.css';
 
 const MovieDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { currentUser, getUserLists, addToList } = useAuth();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showListMenu, setShowListMenu] = useState(false);
-  const [userLists, setUserLists] = useState([]);
-  const [message, setMessage] = useState({ text: '', type: '' });
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -43,45 +37,6 @@ const MovieDetails = () => {
 
     fetchMovieDetails();
   }, [id]);
-
-  // Função para adicionar a uma lista
-  const handleAddToSpecificList = (listId) => {
-    if (!currentUser || !movie) return;
-    
-    const mediaItem = {
-      id: movie.id,
-      title: movie.title,
-      poster_path: movie.poster_path,
-      backdrop_path: movie.backdrop_path,
-      release_date: movie.release_date,
-      media_type: 'movie',
-      vote_average: movie.vote_average
-    };
-    
-    const result = addToList(listId, mediaItem);
-    
-    if (result.success) {
-      setMessage({ text: 'Adicionado à lista', type: 'success' });
-    } else {
-      setMessage({ text: 'Erro ao adicionar', type: 'error' });
-    }
-    
-    setShowListMenu(false);
-    setTimeout(() => setMessage({ text: '', type: '' }), 2500);
-  };
-
-  // Função para mostrar o menu de listas
-  const handleShowListMenu = () => {
-    if (!currentUser) {
-      setMessage({ text: 'Faça login primeiro', type: 'error' });
-      setTimeout(() => setMessage({ text: '', type: '' }), 2500);
-      return;
-    }
-    
-    const lists = getUserLists();
-    setUserLists(lists);
-    setShowListMenu(!showListMenu);
-  };
 
   if (loading) {
     return (
@@ -137,12 +92,6 @@ const MovieDetails = () => {
         <h1>{movie.title}</h1>
       </div>
 
-      {message.text && (
-        <div className={`message-toast ${message.type}`}>
-          {message.text}
-        </div>
-      )}
-
       <div className="movie-details-content">
         <div className="movie-poster-container">
           <img 
@@ -151,55 +100,10 @@ const MovieDetails = () => {
             className="movie-poster"
           />
           <div className="action-buttons">
-            <WatchlistButton mediaItem={{...movie, media_type: 'movie'}} />
-            <button 
-              className="action-button list-button"
-              onClick={handleShowListMenu}
-              title="Adicionar a uma lista"
-            >
-              <FaList />
+            <button className="action-button share-button">
+              <FaShare />
             </button>
-            
-            {/* Menu de listas */}
-            {showListMenu && (
-              <div className="list-menu">
-                <div className="list-menu-header">
-                  <h4>Adicionar a:</h4>
-                  <button 
-                    onClick={() => setShowListMenu(false)}
-                  >
-                    <FaTimes />
-                  </button>
-                </div>
-                
-                {userLists.length === 0 ? (
-                  <p className="no-lists-message">Você não tem listas</p>
-                ) : (
-                  <ul className="lists-options">
-                    {userLists.map(list => (
-                      <li key={list.id}>
-                        <button 
-                          onClick={() => handleAddToSpecificList(list.id)}
-                        >
-                          <FaPlus /> {list.name}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                
-                <div className="list-menu-footer">
-                  <button 
-                    onClick={() => {
-                      navigate('/profile?tab=lists&new=true');
-                      setShowListMenu(false);
-                    }}
-                  >
-                    Criar nova lista
-                  </button>
-                </div>
-              </div>
-            )}
+            <WatchlistButton mediaItem={{...movie, media_type: 'movie'}} />
           </div>
         </div>
 

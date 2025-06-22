@@ -181,18 +181,16 @@
 }
 
 .carousel-slide {
-  height: 300px;
+  height: 100%;
   width: 100%;
   padding: 0 5px;
   position: relative;
+  aspect-ratio: 2/3;
 }
 
 .carousel-slide .movie-card {
   height: 100%;
-}
-
-.swiper-slide {
-  height: auto;
+  width: 100%;
 }
 
 /* Ajuste para garantir que os títulos sejam visíveis */
@@ -226,5 +224,38 @@
   font-size: 14px !important;
   text-align: center !important;
   z-index: 10 !important;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .movies-page {
+    padding: 1rem;
+  }
+  
+  .carousel-slide {
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Estilos específicos para a página TopIMDB */
+.top-imdb-page .section-title {
+  color: #f5c518;
+  border-left: 5px solid #f5c518;
+}
+
+.top-imdb-page .active-tab {
+  background-color: #f5c518;
+  color: #0b1120;
+}
+
+.top-imdb-page .pagination button.active {
+  background-color: #f5c518;
+  color: #0b1120;
 }
 
