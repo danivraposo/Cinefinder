@@ -1,124 +1,110 @@
-# CineFinder
+# 🎬 CineFinder
 
-CineFinder é uma aplicação web para descobrir e explorar filmes e séries de TV.
+CineFinder é uma aplicação web desenvolvida em **React.js** para descobrir, organizar e comentar filmes e séries. Com integração à API do TMDb, permite aos utilizadores criar listas personalizadas, comentar conteúdos, e aos administradores moderar e destacar conteúdos.
 
-## Sistema de Autenticação e Permissões
+---
 
-A aplicação possui um sistema de autenticação com dois usuários pré-definidos:
+## 🚀 Funcionalidades
 
-### Usuários disponíveis
+- **Exploração de conteúdo**: pesquisa e visualização de detalhes de filmes e séries (sinopse, elenco, trailer, avaliação).
+- **Criação de listas**: adicionar filmes e séries a listas públicas ou privadas, com tags e descrição.
+- **Comentários**: escrever, editar e eliminar comentários sobre os conteúdos.
+- **Gestão via Admin**:
+  - destaque de listas criadas pelos utilizadores,
+  - remoção de comentários ofensivos ou irrelevantes.
+- **Autenticação**: registo e login de utilizadores, com roles (normal/admin).
+- **Interface responsiva e acessível**: otimizada para mobile e desktop, com alto contraste e navegação por teclado.
 
-1. **Manuel (Cinéfilo)**
-   - Username: manuel
-   - Senha: senha123
-   - Permissões:
-     - Consultar a lista de séries e filmes disponíveis
-     - Fazer comentários em séries e filmes
-     - Adicionar séries e filmes a uma "watchlist"
-     - Ver e editar os seus próprios comentários
+---
 
-2. **José (Admin)**
-   - Username: jose
-   - Senha: admin123
-   - Permissões:
-     - Todas as funcionalidades do cinófilo
-     - Remover comentários de qualquer utilizador
-     - Gerir utilizadores (criar, editar, desativar)
+## 🛠️ Tecnologias
 
-### Funcionalidades Implementadas
+- **Frontend**: React.js v18, React Router, Context API
+- **Estilos**: CSS modular (Grid, Flexbox, media queries)
+- **Dados**: TMDb API, localStorage
+- **Controlo de versão**: Git, GitHub
+- **Vídeos de teste**: gravações simuladas disponíveis via OneDrive
 
-- **Autenticação**: Login e logout usando username e password
-- **Watchlist**: Adicionar/remover filmes e séries para assistir mais tarde
-- **Comentários**: Sistema de comentários em filmes e séries
-- **Perfil de Usuário**: Interface para gerenciar watchlist e comentários
-- **Painel de Administração**: Interface para gerenciar usuários (apenas para admin)
+---
 
-## Tecnologias Utilizadas
+## 📂 Estrutura do Projeto
 
-- React
-- React Router
-- Context API para gerenciamento de estado
-- LocalStorage para persistência de dados
-- CSS para estilização
+```
+src/
+├── components/           — Componentes reutilizáveis
+├── contexts/             — AuthContext para gestão de utilizadores
+├── pages/                — Páginas principais (Home, Details, Lists, Admin)
+├── App.js                — Roteamento e layout base
+├── index.js              — Entrada da aplicação
+README.md
+```
 
-## Como executar o projeto
+---
 
-1. Clone o repositório
-2. Instale as dependências: `npm install`
-3. Execute o projeto: `npm start`
-4. Acesse `http://localhost:3000`
+## 🎯 Usabilidade / Testes
 
-## API
+- Testes funcionais simulados com 4 utilizadores (incluindo dois admins).
+- Flows testados: criação de listas, comentários, destaque de conteúdo, edição e remoção.
+- Formulários (pré e pós-teste) e vídeos com narrações disponíveis no OneDrive.
 
-Este projeto utiliza a API do The Movie Database (TMDB) para obter informações sobre filmes e séries.
+---
 
-# Getting Started with Create React App
+## 📁 Links Importantes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **Código-fonte**: https://github.com/danivraposo/Cinefinder  
+- **Vídeos de testes e formulários**: https://ipbejapt‑my.sharepoint.com/:f:/g/personal/24155_stu_ipbeja_pt/Ekkj8z17qGNHlw5vqWGhBjIBry6qqzlK45PY74xvM6kNtQ?e=Sd9wT6  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🛠️ Instalação
 
-### `npm start`
+```bash
+# 1. Clone o repositório
+git clone https://github.com/danivraposo/Cinefinder.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 2. Instale as dependências
+cd Cinefinder
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 3. Adicione as variáveis ambiente (TMDb API Key)
+# Crie um ficheiro .env com a chave TMDB_API_KEY
 
-### `npm test`
+# 4. Inicie a aplicação em modo de desenvolvimento
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+A aplicação estará disponível por defeito em `http://localhost:3000`.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧩 Uso
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Regista-te ou faz login.
+2. Pesquisa por filmes/séries e explora os detalhes.
+3. Clica em **“Adicionar à lista”** para criar ou usar uma lista existente.
+4. No detalhe, comenta, edita ou apaga os teus comentários.
+5. Se fores administrador, podes:
+   - destacar listas de utilizadores,
+   - remover comentários de qualquer utilizador.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ✅ Sugestões para trabalho futuro
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Implementar **likes** nos comentários
+- Introduzir **notificações** para eventos nas listas/comentários
+- Criar **perfil público de utilizador** para exibir listas criadas
+- Internacionalização (i18n)
+- Integração com plataformas de streaming ("onde assistir")
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📄 Licença
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Projeto disponibilizado sob a licença MIT.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🙌 Contribuições
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contribuições são bem-vindas! Abre um *issue* ou envia um *pull request* com melhorias, correções ou sugestões.
