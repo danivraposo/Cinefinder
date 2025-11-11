@@ -87,17 +87,6 @@ A aplicação estará disponível por defeito em `http://localhost:3000`.
    - destacar listas de utilizadores,
    - remover comentários de qualquer utilizador.
 
----
-
-## ✅ Sugestões para trabalho futuro
-
-- Implementar **likes** nos comentários
-- Introduzir **notificações** para eventos nas listas/comentários
-- Criar **perfil público de utilizador** para exibir listas criadas
-- Internacionalização (i18n)
-- Integração com plataformas de streaming ("onde assistir")
-
----
 
 ## 📄 Licença
 
