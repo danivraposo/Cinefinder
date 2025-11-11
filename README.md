@@ -88,10 +88,6 @@ A aplicação estará disponível por defeito em `http://localhost:3000`.
    - remover comentários de qualquer utilizador.
 
 
-## 📄 Licença
-
-Projeto disponibilizado sob a licença MIT.
-
 ---
 
 ## 🙌 Contribuições
